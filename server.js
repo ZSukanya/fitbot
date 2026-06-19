@@ -19,6 +19,10 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
+app.get('/', (req, res) => {
+  res.send('FitBot is running');
+});
+
 app.post(
   '/webhook',
   line.middleware(config),
@@ -111,4 +115,8 @@ Time : ${data.time} ${data.time_unit}
   }
 );
 
-app.listen(3000);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
+});
