@@ -86,7 +86,8 @@ app.post('/webhook', line.middleware(config), async (req, res) => {
     if (event.type !== 'message') {
       return res.sendStatus(200);
     }
-    const text = event.message.text.trim(); // ตัวอย่าง: // running 20 km 1 hr // swimming 30 min // ride 50 km 2 hr const regex = /^(running|swimming|ride|walk)\s*(\d+)?\s*(km)?\s*(\d+)\s*(hr|min)$/i; 
+    const text = event.message.text.trim(); // ตัวอย่าง: // running 20 km 1 hr // swimming 30 min // ride 50 km 2 hr 
+    const regex = /^(running|swimming|ride|walk)\s*(\d+)?\s*(km)?\s*(\d+)\s*(hr|min)$/i; 
     const match = text.match(regex);
     let replyText = '';
     if (!match) {
