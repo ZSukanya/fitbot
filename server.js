@@ -91,14 +91,14 @@ app.post('/webhook', line.middleware(config), async (req, res) => {
     const match = text.match(regex);
     let replyText = '';
     if (!match) {
-      replyText = `รูปแบบที่รองรับ: running 20 km 1 hr swimming 30 min ride 50 km 2 hr`;
+      replyText = `Pattern: running 20 km 1 hr swimming 30 min ride 50 km 2 hr`;
     } else {
       const activity = match[1];
       const distance = match[2] || '-';
       const distanceUnit = match[3] || '';
       const time = match[4];
       const timeUnit = match[5];
-      replyText = `บันทึกเรียบร้อย ✅ Activity : ${activity} Distance : ${distance} ${distanceUnit} Time : ${time} ${timeUnit}`;
+      replyText = `Save Success ✅ Activity : ${activity} Distance : ${distance} ${distanceUnit} Time : ${time} ${timeUnit}`;
     }
     await client.replyMessage({
       replyToken: event.replyToken,
