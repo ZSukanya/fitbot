@@ -145,8 +145,8 @@ swimming 30 min`;
 
   const activity = activityMatch[1].toLowerCase();
 
-  const distanceMatch = text.match(/(\d+(?:\.\d+)?)\s*km/i);
-  const timeMatch = text.match(/(\d+(?:\.\d+)?)\s*(hr|min)/i);
+  const distanceMatch = text.match(/\b(\d+(?:\.\d+)?)\s*km\b/i);
+  const timeMatch = text.match(/\b(\d+(?:\.\d+)?)\s*(hr|min)\b/i);
 
   const distance = distanceMatch
     ? Number(distanceMatch[1])
@@ -165,10 +165,19 @@ swimming 30 min`;
     : null;
 
   const detail = text
-    .replace(/^(running|swimming|ride|walk)\b/i, '')
-    .replace(/(\d+(?:\.\d+)?)\s*km/ig, '')
-    .replace(/(\d+(?:\.\d+)?)\s*(hr|min)/ig, '')
-    .trim() || null;
+  .replace(/^(run|swim|ride|walk|Weight|yoga|Jogging|Danc)\b/i, '')
+  .replace(/\b\d+(?:\.\d+)?\s*km\b/ig, '')
+  .replace(/\b\d+(?:\.\d+)?\s*(hr|min)\b/ig, '')
+  .trim() || null;
+
+  console.log({
+  activity,
+  detail,
+  distance,
+  distanceUnit,
+  duration,
+  durationUnit
+});
 
   const { data, error } = await supabase
     .from('activity_logs')
