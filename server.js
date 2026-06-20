@@ -110,7 +110,12 @@ app.post('/webhook', line.middleware(config), async (req, res) => {
             duration: time,
             duration_unit: timeUnit
           }
-        ]);
+        ])
+        .select();
+
+
+console.log("DATA:", data);
+console.log("ERROR:", error);
 
         if (error) {
           console.error(error);
