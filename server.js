@@ -88,46 +88,23 @@ app.post('/webhook', line.middleware(config), async (req, res) => {
       return res.sendStatus(200);
     }
     const text = event.message.text.trim(); // ตัวอย่าง: // running 20 km 1 hr // swimming 30 min // ride 50 km 2 hr 
-//     const regex = /^(running|swimming|ride|walk)\s*(\d+)?\s*(km)?\s*(\d+)\s*(hr|min)$/i; 
-//     const match = text.match(regex);
-//     let replyText = '';
-//     if (!match) {
-//       replyText = `Pattern: running 20 km 1 hr swimming 30 min ride 50 km 2 hr`;
-//     } else {
-//       const activity = match[1];
-//       const distance = match[2] ? Number(match[2]) : null;
-//       const distanceUnit = match[3] || null;
-//       const time = Number(match[4]);
-//       const timeUnit = match[5];
 
-//       const { data, error } = await supabase
-//   .from('activity_logs')
-//   .insert([
-//     {
-//       user_id: event.source.userId,
-//       activity,
-//       distance,
-//       distance_unit: distanceUnit,
-//       duration: time,
-//       duration_unit: timeUnit
-//     }
-//   ])
-//   .select();
+    if (text.toLowerCase() === 'report') {
 
-// console.log("DATA:", data);
-// console.log("ERROR:", error);
+  const reportText = await getReport(
+    event.source.userId
+  );
 
-//         if (error) {
-//           console.error(error);
-//         }
+  await client.replyMessage({
+    replyToken: event.replyToken,
+    messages: [{
+      type: 'text',
+      text: reportText
+    }]
+  });
 
-//       replyText =
-//       `Save Success ✅
-//       Activity : ${activity}
-//       Distance : ${distance ?? '-'} ${distanceUnit ?? ''}
-//       Time : ${time} ${timeUnit}`;
-
-//     }
+  return res.sendStatus(200);
+}
 
 const activityMatch = text.match(/^(running|swimming|ride|walk)\b/i);
 
