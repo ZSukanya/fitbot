@@ -85,6 +85,24 @@ app.post('/webhook', line.middleware(config), async (req, res) => {
       return res.sendStatus(200);
     }
     const event = req.body.events[0];
+    console.log('EVENT TYPE:', event.type);
+    console.log('USER ID:', event.source.userId);
+// เพื่อนใหม่
+if (event.type === 'follow') {
+
+  console.log('NEW FOLLOW:', event.source.userId);
+
+  await client.pushMessage({
+    to: event.source.userId,
+    messages: [{
+      type: 'text',
+      text: 'Welcome 🎉'
+    }]
+  });
+
+  return res.sendStatus(200);
+}
+
     if (event.type !== 'message') {
       return res.sendStatus(200);
     }
@@ -134,14 +152,6 @@ swimming 30 min`;
     ? 'km'
     : null;
 
-  // const duration = timeMatch
-  //   ? Number(timeMatch[1])
-  //   : null;
-
-  // const durationUnit = timeMatch
-  //   ? timeMatch[2].toLowerCase()
-  //   : null;
-
   const duration = timeMatch
   ? Number(timeMatch[1])
   : null;
@@ -176,7 +186,6 @@ if (timeMatch) {
   duration,
   durationUnit
 });
-
   const { data, error } = await supabase
     .from('activity_logs')
     .insert([
