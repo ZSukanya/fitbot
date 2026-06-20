@@ -124,7 +124,7 @@ swimming 30 min`;
   const activity = activityMatch[1].toLowerCase();
 
   const distanceMatch = text.match(/\b(\d+(?:\.\d+)?)\s*km\b/i);
-  const timeMatch = text.match(/\b(\d+(?:\.\d+)?)\s*(hr|min)\b/i);
+  const timeMatch = text.match(/\b(\d+(?:\.\d+)?)\s*(hr|hrs|hour|hours|min|mins|minute|minutes)\b/i);
 
   const distance = distanceMatch
     ? Number(distanceMatch[1])
@@ -134,18 +134,38 @@ swimming 30 min`;
     ? 'km'
     : null;
 
-  const duration = timeMatch
-    ? Number(timeMatch[1])
-    : null;
+  // const duration = timeMatch
+  //   ? Number(timeMatch[1])
+  //   : null;
 
-  const durationUnit = timeMatch
-    ? timeMatch[2].toLowerCase()
-    : null;
+  // const durationUnit = timeMatch
+  //   ? timeMatch[2].toLowerCase()
+  //   : null;
+
+  const duration = timeMatch
+  ? Number(timeMatch[1])
+  : null;
+
+let durationUnit = null;
+
+if (timeMatch) {
+
+  const unit = timeMatch[2].toLowerCase();
+
+  if (
+    ['hr', 'hrs', 'hour', 'hours'].includes(unit)
+  ) {
+    durationUnit = 'hr';
+  } else {
+    durationUnit = 'min';
+  }
+
+}
 
   const detail = text
   .replace(/^(run|swim|ride|walk|Weight|yoga|Jogging|Danc)\b/i, '')
   .replace(/\b\d+(?:\.\d+)?\s*km\b/ig, '')
-  .replace(/\b\d+(?:\.\d+)?\s*(hr|min)\b/ig, '')
+  .replace(/\b\d+(?:\.\d+)?\s*(hr|hrs|hour|hours|min|mins|minute|minutes)\b/ig,'')
   .trim() || null;
 
   console.log({
