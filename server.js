@@ -99,20 +99,20 @@ app.post('/webhook', line.middleware(config), async (req, res) => {
       const distanceUnit = match[3] || '';
       const time = match[4];
       const timeUnit = match[5];
-      const { error } = await supabase
-        .from('activity_logs')
-        .insert([
-          {
-            user_id: event.source.userId,
-            activity,
-            distance,
-            distance_unit: distanceUnit,
-            duration: time,
-            duration_unit: timeUnit
-          }
-        ])
-        .select();
 
+      const { data, error } = await supabase
+  .from('activity_logs')
+  .insert([
+    {
+      user_id: event.source.userId,
+      activity,
+      distance,
+      distance_unit: distanceUnit,
+      duration: time,
+      duration_unit: timeUnit
+    }
+  ])
+  .select();
 
 console.log("DATA:", data);
 console.log("ERROR:", error);
