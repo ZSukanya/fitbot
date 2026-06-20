@@ -63,6 +63,7 @@
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+const { getReport } = require('./report');
 require('dotenv').config();
 const express = require('express');
 const line = require('@line/bot-sdk');

@@ -90,3 +90,7 @@ return report;
 module.exports = {
 getReport
 };
+
+module.exports = {
+  getReport
+};
