@@ -12,8 +12,12 @@
   "type": "commonjs",
   "dependencies": {
     "@line/bot-sdk": "^11.0.2",
+    "@supabase/supabase-js": "^2.108.2",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "openai": "^6.44.0"
+    "firebase-admin": "^14.0.0",
+    "mysql2": "^3.22.5",
+    "openai": "^6.44.0",
+    "sqlite3": "^6.0.1"
   }
 }
